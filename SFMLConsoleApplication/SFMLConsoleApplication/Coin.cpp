@@ -1,9 +1,12 @@
 #include "Coin.h"
 
-Coin::Coin(Game * game, RenderWindow & renderWindow, Texture texture, Vector2f position, Vector2f velocity, float radius) :
-	mRenderWindow(mRenderWindow)
-	, mGame(game)
+using namespace sf;
+
+Coin::Coin(RenderWindow& renderWindow, Texture& texture, Vector2f position, float velocity, float radius) :
+	mRenderWindow(renderWindow)
 {
+	mSprite.setTexture(texture);
+	setPos(position);
 }
 
 Coin::~Coin()

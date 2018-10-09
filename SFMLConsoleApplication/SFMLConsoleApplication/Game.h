@@ -3,9 +3,7 @@
 
 #include <SFML/Graphics.hpp>
 #include <string>
-#include <iostream>
-#include <vector>
-class Object;
+#include "Coin.h"
 
 using namespace sf;
 
@@ -21,8 +19,6 @@ private:
 	RenderWindow mRenderWindow;
 	bool mGameOver;
 
-	typedef std::vector<Object> ObjVector;
-	ObjVector objVector;
 	Coin *mCoin;
 	Texture mCoinTexture;
 
@@ -31,7 +27,8 @@ private:
 	void displayWindow();
 
 	void createCoin();
-	void getRandomCoinPos();
+	void drawCoin();
+	Vector2f getRandomPos();
 };
 
 #endif // !INCLUDE_GAME
