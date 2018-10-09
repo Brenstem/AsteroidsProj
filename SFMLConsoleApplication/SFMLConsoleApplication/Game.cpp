@@ -1,4 +1,5 @@
 #include "Game.h"
+#include "Coin.h"
 #include <iostream>
 
 namespace {
@@ -21,7 +22,9 @@ namespace {
 
 Game::Game() :
 	mRenderWindow(videoMode, windowTitle, Style::Titlebar | Style::Close)
+	, mGameOver(false)
 {
+	mRenderWindow.setFramerateLimit(FRAMERATE_LIMIT);
 }
 
 Game::~Game()
@@ -60,4 +63,9 @@ void Game::clearWindow()
 void Game::displayWindow()
 {
 	mRenderWindow.display();
+}
+
+void Game::createCoin()
+{
+
 }

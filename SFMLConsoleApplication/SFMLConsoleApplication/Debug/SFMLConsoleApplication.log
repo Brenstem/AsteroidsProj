@@ -1,6 +1,2 @@
 ﻿  Coin.cpp
-  Game.cpp
-  Object.cpp
-  Generating Code...
-Coin.obj : error LNK2019: unresolved external symbol "public: virtual __thiscall Coin::~Coin(void)" (??1Coin@@UAE@XZ) referenced in function "public: virtual void * __thiscall Coin::`scalar deleting destructor'(unsigned int)" (??_GCoin@@UAEPAXI@Z)
-C:\Users\Brenstem\Documents\AsteroidsProj\SFMLConsoleApplication\Debug\SFMLConsoleApplication.exe : fatal error LNK1120: 1 unresolved externals
+  SFMLConsoleApplication.vcxproj -> C:\Users\Brenstem\Documents\AsteroidsProj\SFMLConsoleApplication\Debug\SFMLConsoleApplication.exe

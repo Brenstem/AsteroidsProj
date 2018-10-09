@@ -10,7 +10,7 @@ class Object
 public:
 	Object();
 	virtual ~Object() = 0;
-	virtual void update() = 0;
+	virtual void update(float deltaTime) = 0;
 	virtual void draw() = 0;
 	virtual Vector2f getPos() = 0;
 	virtual void setPos(Vector2f pos) = 0;

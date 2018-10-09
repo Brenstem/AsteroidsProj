@@ -15,14 +15,20 @@ public:
 	Game();
 	~Game();
 	void run();
+	float f = 10;
 
 private:
 	RenderWindow mRenderWindow;
 	bool mGameOver;
 
+	typedef std::vector<Object> ObjVector;
+	ObjVector objVector;
+
 	void handleWindowEvents();
 	void clearWindow();
 	void displayWindow();
+
+	void createCoin();
 };
 
 #endif // !INCLUDE_GAME

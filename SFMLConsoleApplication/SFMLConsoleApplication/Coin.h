@@ -6,9 +6,9 @@
 class Coin : Object
 {
 public:
-	Coin(Game *game);
+	Coin(Game *game, RenderWindow &renderWindow, Texture texture, Vector2f position, Vector2f velocity, float radius);
 	~Coin();
-	virtual void update() override;
+	void update(float deltaTIme) override;
 	virtual void draw() override;
 	virtual Vector2f getPos() override;
 	virtual void setPos(Vector2f pos) override;
