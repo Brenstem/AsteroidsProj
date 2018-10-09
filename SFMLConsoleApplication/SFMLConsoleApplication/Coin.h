@@ -16,7 +16,7 @@ public:
 
 private:
 	RenderWindow &mRenderWindow;
-
+	Game* mGame;
 	Sprite mSprite;
 	Vector2f mVelocity;
 	float mRad;

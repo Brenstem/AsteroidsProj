@@ -1,8 +1,7 @@
 #include "Object.h"
 
-Object::Object(Game *game) : 
+Object::Object() : 
 	mRenderWindow(mRenderWindow)
-	, mGame(game)
 {
 }
 

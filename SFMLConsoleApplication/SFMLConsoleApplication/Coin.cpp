@@ -1,8 +1,8 @@
 #include "Coin.h"
 
 Coin::Coin(Game *game) :
-	mRenderWindow(mRenderWindow),
-	mGame(game)
+	mRenderWindow(mRenderWindow)
+	, mGame(game)
 {
 }
 

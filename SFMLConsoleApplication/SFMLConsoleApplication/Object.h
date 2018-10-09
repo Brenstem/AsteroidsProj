@@ -8,7 +8,7 @@ using namespace sf;
 class Object
 {
 public:
-	Object(Game *game);
+	Object();
 	virtual ~Object() = 0;
 	virtual void update() = 0;
 	virtual void draw() = 0;
@@ -18,7 +18,7 @@ public:
 
 protected:
 	RenderWindow &mRenderWindow;
-	Game* mGame;
+	Game *mGame;
 };
 
 #endif // !1
