@@ -67,5 +67,9 @@ void Game::displayWindow()
 
 void Game::createCoin()
 {
+}
+
+void Game::getRandomCoinPos()
+{
 
 }

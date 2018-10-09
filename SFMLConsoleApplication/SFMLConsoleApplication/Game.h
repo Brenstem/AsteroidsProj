@@ -23,12 +23,15 @@ private:
 
 	typedef std::vector<Object> ObjVector;
 	ObjVector objVector;
+	Coin *mCoin;
+	Texture mCoinTexture;
 
 	void handleWindowEvents();
 	void clearWindow();
 	void displayWindow();
 
 	void createCoin();
+	void getRandomCoinPos();
 };
 
 #endif // !INCLUDE_GAME
