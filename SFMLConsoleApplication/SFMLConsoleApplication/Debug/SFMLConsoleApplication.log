@@ -1,0 +1,7 @@
+﻿  Coin.cpp
+c:\users\brenstem\documents\asteroids\sfmlconsoleapplication\sfmlconsoleapplication\coin.cpp(6): error C2512: 'Object': no appropriate default constructor available
+  c:\users\brenstem\documents\asteroids\sfmlconsoleapplication\sfmlconsoleapplication\object.h(8): note: see declaration of 'Object'
+c:\users\brenstem\documents\asteroids\sfmlconsoleapplication\sfmlconsoleapplication\coin.cpp(5): error C2614: 'Coin': illegal member initialization: 'mGame' is not a base or member
+  Game.cpp
+  Object.cpp
+  Generating Code...
