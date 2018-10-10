@@ -1,4 +1,5 @@
 #include "Ship.h"
+#include <iostream>
 
 using namespace sf;
 
@@ -48,4 +49,29 @@ void Ship::updatePosition(float deltaTime)
 
 void Ship::constrainPosition()
 {
+	Vector2f windowSize = Vector2f(mRenderWindow.getSize().x, mRenderWindow.getSize().y);
+	float minXY = mRad;
+	float maxX = windowSize.x - minXY;
+	float maxY = windowSize.y - minXY;
+	float xPos = mSprite.getPosition().x;
+	float yPos = mSprite.getPosition().y;
+
+	if (xPos < minXY)
+	{
+		xPos = minXY;
+	}
+	else if (xPos > maxX)
+	{
+		xPos = maxX;
+	}
+	else if (yPos < minXY)
+	{
+		yPos = minXY;
+	}
+	else if (yPos > maxY)
+	{
+		yPos = maxY;
+	}
+	Vector2f shipPos(xPos, yPos);
+	mSprite.setPosition(shipPos);
 }

@@ -6,10 +6,11 @@ namespace {
 	const String windowTitle = "Asteroids";
 	const VideoMode videoMode = VideoMode(768, 1024);
 	const Color backgroundColor = Color::Black;
+	const Vector2f SHIP_STARTPOSITION = Vector2f(354, 850);
 	const int FRAMERATE_LIMIT = 60;
 	const int START_LEVEL = 1;
 	const float SHIP_RADIUS = 20.0f;
-	const float SHIP_VELOCITY = 0;
+	const float SHIP_VELOCITY = 300.0f;
 	const float COIN_RADIUS = 16.0f;
 	const float COIN_VELOCITY = 40.0f;
 	const float ASTEROID_RADIUS = 32.0f;
@@ -95,7 +96,7 @@ void Game::drawCoin()
 
 void Game::createShip()
 {
-	mShip = new Ship(mRenderWindow, mShipTexture, getRandomPos(), SHIP_VELOCITY, SHIP_RADIUS);
+	mShip = new Ship(mRenderWindow, mShipTexture, SHIP_STARTPOSITION, SHIP_VELOCITY, SHIP_RADIUS);
 }
 
 void Game::drawShip()
