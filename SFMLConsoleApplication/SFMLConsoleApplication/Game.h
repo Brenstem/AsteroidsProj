@@ -4,6 +4,7 @@
 #include <SFML/Graphics.hpp>
 #include <string>
 #include "Coin.h"
+#include "Ship.h"
 
 using namespace sf;
 
@@ -19,6 +20,8 @@ private:
 	RenderWindow mRenderWindow;
 	bool mGameOver;
 
+	Ship *mShip;
+	Texture mShipTexture;
 	Coin *mCoin;
 	Texture mCoinTexture;
 
@@ -28,6 +31,11 @@ private:
 
 	void createCoin();
 	void drawCoin();
+
+	void createShip();
+	void drawShip();
+	void updateShip(float deltaTime);
+
 	Vector2f getRandomPos();
 };
 

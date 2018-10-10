@@ -8,9 +8,9 @@ using namespace sf;
 class Coin
 {
 public:
-	Coin(RenderWindow &renderWindow, Texture& texture, Vector2f position, float velocity, float radius);
+	Coin(RenderWindow &renderWindow, Texture &texture, Vector2f position, float velocity, float radius);
 	~Coin();
-	void update(float deltaTIme);
+	void update(float deltaTime);
 	void draw();
 	Vector2f getPos();
 	void setPos(Vector2f pos);

@@ -1,5 +1,5 @@
-﻿  Coin.cpp
+﻿  Game.cpp
   Main.cpp
-  Game.cpp
+  Ship.cpp
   Generating Code...
   SFMLConsoleApplication.vcxproj -> C:\Users\Brenstem\Documents\AsteroidsProj\SFMLConsoleApplication\Debug\SFMLConsoleApplication.exe

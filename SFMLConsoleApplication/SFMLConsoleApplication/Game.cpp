@@ -1,5 +1,4 @@
 #include "Game.h"
-#include "Coin.h"
 #include <iostream>
 #include <cstdlib>
 
@@ -28,6 +27,8 @@ Game::Game() :
 {
 	mRenderWindow.setFramerateLimit(FRAMERATE_LIMIT);
 	mCoinTexture.loadFromFile("CoinSprite.psd");
+	mShipTexture.loadFromFile("ShipSprite.psd");
+	createShip();
 	createCoin();
 }
 
@@ -44,7 +45,10 @@ void Game::run()
 		handleWindowEvents();
 		clearWindow();
 
+		updateShip(deltaTime);
+
 		drawCoin();
+		drawShip();
 
 		displayWindow();
 	}
@@ -87,4 +91,19 @@ Vector2f Game::getRandomPos()
 void Game::drawCoin() 
 {
 	mCoin->draw();
+}
+
+void Game::createShip()
+{
+	mShip = new Ship(mRenderWindow, mShipTexture, getRandomPos(), SHIP_VELOCITY, SHIP_RADIUS);
+}
+
+void Game::drawShip()
+{
+	mShip->draw();
+}
+
+void Game::updateShip(float deltaTime)
+{
+	mShip->update(deltaTime);
 }
