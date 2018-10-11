@@ -49,7 +49,7 @@ void Ship::updatePosition(float deltaTime)
 
 void Ship::constrainPosition()
 {
-	Vector2f windowSize = Vector2f(mRenderWindow.getSize().x, mRenderWindow.getSize().y);
+	Vector2f windowSize = Vector2f((float(mRenderWindow.getSize().x)), (float(mRenderWindow.getSize().y)));
 	float minXY = mRad;
 	float maxX = windowSize.x - minXY;
 	float maxY = windowSize.y - minXY;
