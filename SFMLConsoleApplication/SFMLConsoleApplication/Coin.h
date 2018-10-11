@@ -12,9 +12,6 @@ public:
 	~Coin();
 	void update(float deltaTime);
 	void draw();
-	Vector2f getPos();
-	void setPos(Vector2f pos);
-	float getRad();
 
 private:
 	RenderWindow &mRenderWindow;

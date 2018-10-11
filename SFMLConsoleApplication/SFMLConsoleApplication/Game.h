@@ -5,6 +5,9 @@
 #include <string>
 #include "Coin.h"
 #include "Ship.h"
+#include "Asteroid.h"
+#include <random>
+#include <vector>
 
 using namespace sf;
 
@@ -19,11 +22,20 @@ public:
 private:
 	RenderWindow mRenderWindow;
 	bool mGameOver;
+	int mLevel;
+	static std::mt19937 mGenerator;
 
 	Ship *mShip;
 	Texture mShipTexture;
+
 	Coin *mCoin;
 	Texture mCoinTexture;
+
+	typedef std::vector<Asteroid*> AsteroidVector;
+	AsteroidVector astVector;
+	Texture mAsteroidTexture;
+	Clock mAsteroidSpawnClock;
+	Asteroid *mAsteroid;
 
 	void handleWindowEvents();
 	void clearWindow();
@@ -37,7 +49,11 @@ private:
 	void drawShip();
 	void updateShip(float deltaTime);
 
-	Vector2f getRandomPos();
+	void createAsteroid();
+	void drawAsteroid();
+	void updateAsteroid(float deltaTime);
+
+	Vector2f getRandomPos(int min, int max);
 };
 
 #endif // !INCLUDE_GAME

@@ -1,7 +1,8 @@
 #include "Game.h"
 #include <iostream>
 #include <cstdlib>
-#include <random>
+
+std::mt19937 Game::mGenerator;
 
 namespace {
 	const String windowTitle = "Asteroids";
@@ -25,13 +26,21 @@ namespace {
 Game::Game() :
 	mRenderWindow(videoMode, windowTitle, Style::Titlebar | Style::Close)
 	, mGameOver(false)
+	, mShip(0)
 	, mCoin(0)
+	, mLevel(START_LEVEL)
 {
 	mRenderWindow.setFramerateLimit(FRAMERATE_LIMIT);
+
 	mCoinTexture.loadFromFile("CoinSprite.psd");
 	mShipTexture.loadFromFile("ShipSprite.psd");
+	mAsteroidTexture.loadFromFile("AsteroidSprite.psd");
+
 	createShip();
 	createCoin();
+	
+
+	mGenerator.seed((unsigned int)(time(0)));
 }
 
 Game::~Game()
@@ -41,28 +50,33 @@ Game::~Game()
 void Game::run()
 {
 	Clock frameClock;
+	mAsteroidSpawnClock;
 	while (mRenderWindow.isOpen() && !mGameOver)
 	{
 		float deltaTime = frameClock.restart().asSeconds();
 		handleWindowEvents();
 		clearWindow();
+		createAsteroid();
 
 		updateShip(deltaTime);
 		updateCoin(deltaTime);
+		updateAsteroid(deltaTime);
 
 		drawCoin();
 		drawShip();
+		drawAsteroid();
 
 		displayWindow();
 	}
 }
 
-Vector2f Game::getRandomPos()
+
+Vector2f Game::getRandomPos(int min, int max)
 {
-	std::mt19937 random(time(0));
-	std::cout << random();
-	float x = (float)(std::rand() % mRenderWindow.getSize().x + 0);
-	float y = (float)(std::rand() % mRenderWindow.getSize().y + 0);
+	std::uniform_int_distribution<uint32_t> randomRange(min, max);
+
+	float x = (float)(randomRange(mGenerator));
+	float y = (float)(randomRange(mGenerator));
 	return Vector2f(x, y);
 }
 
@@ -90,7 +104,7 @@ void Game::displayWindow()
 
 void Game::createCoin()
 {
-	mCoin = new Coin(mRenderWindow, mCoinTexture, getRandomPos(), COIN_VELOCITY, COIN_RADIUS);
+	mCoin = new Coin(mRenderWindow, mCoinTexture, getRandomPos(0, videoMode.width), COIN_VELOCITY, COIN_RADIUS);
 }
 
 void Game::drawCoin() 
@@ -116,4 +130,39 @@ void Game::drawShip()
 void Game::updateShip(float deltaTime)
 {
 	mShip->update(deltaTime);
+}
+
+void Game::createAsteroid()
+{
+	if (ASTEROID_SPAWN_DELTA < mAsteroidSpawnClock.getElapsedTime().asSeconds())
+	{
+		//int spawnCount = int(ASTEROID_SPAWN_COUNT_BASE + mLevel * ASTEROID_SPAWN_COUNT_INCREMENT);
+		for (size_t i = 0; 0 < 1; i++)
+		{
+			std::cout << astVector.size();
+			Asteroid *asteroid = new Asteroid(mRenderWindow, mAsteroidTexture, getRandomPos(0, videoMode.width), ASTEROID_MIN_VELOCITY, ASTEROID_RADIUS);
+			astVector.push_back(asteroid);
+		}
+		mAsteroidSpawnClock.restart();
+	}
+}
+
+void Game::drawAsteroid()
+{
+	for (size_t i = 0; i < astVector.size(); i++)
+	{
+		std::cout << "drawing asteroid" << std::endl;
+		mAsteroid = astVector[i];
+		mAsteroid->draw();
+	}
+}
+
+void Game::updateAsteroid(float deltaTime)
+{
+	for (size_t i = 0; i < astVector.size(); i++)
+	{
+		std::cout << "updating asteroid" << std::endl;
+		mAsteroid = astVector[i];
+		mAsteroid->update(deltaTime);
+	}
 }
