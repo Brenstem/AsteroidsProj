@@ -64,7 +64,7 @@ void Ship::constrainPosition()
 	{
 		xPos = maxX;
 	}
-	else if (yPos < minXY)
+	if (yPos < minXY)
 	{
 		yPos = minXY;
 	}
