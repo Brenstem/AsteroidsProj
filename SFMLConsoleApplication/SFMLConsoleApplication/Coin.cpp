@@ -6,7 +6,9 @@ Coin::Coin(RenderWindow& renderWindow, Texture& texture, Vector2f position, floa
 	mRenderWindow(renderWindow)
 {
 	mSprite.setTexture(texture);
-	setPos(position);
+	mSprite.setPosition(position);
+	mVelocity = velocity;
+	mRad = radius;
 }
 
 Coin::~Coin()
@@ -15,7 +17,8 @@ Coin::~Coin()
 
 void Coin::update(float deltaTime)
 {
-	mSprite.move(deltaTime * mVelocity);
+	Vector2f direction(0, 1);
+	mSprite.move(deltaTime * mVelocity * direction);
 }
 
 void Coin::draw()
@@ -23,17 +26,3 @@ void Coin::draw()
 	mRenderWindow.draw(mSprite);
 }
 
-Vector2f Coin::getPos()
-{
-	return mSprite.getPosition();
-}
-
-void Coin::setPos(Vector2f pos)
-{
-	mSprite.setPosition(pos);
-}
-
-float Coin::getRad()
-{
-	return 0.0f;
-}

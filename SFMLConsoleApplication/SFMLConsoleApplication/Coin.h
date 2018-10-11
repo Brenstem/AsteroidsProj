@@ -19,7 +19,7 @@ public:
 private:
 	RenderWindow &mRenderWindow;
 	Sprite mSprite;
-	Vector2f mVelocity;
+	float mVelocity;
 	float mRad;
 };
 #endif // !ASTEROIDS_COIN_H

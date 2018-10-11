@@ -1,11 +1,3 @@
-﻿  Ship.cpp
-c:\users\brenstem\documents\asteroidsproj\sfmlconsoleapplication\sfmlconsoleapplication\ship.cpp(52): warning C4244: 'argument': conversion from 'T' to 'T', possible loss of data
-          with
-          [
-              T=unsigned int
-          ]
-          and
-          [
-              T=float
-          ]
+﻿  Game.cpp
+c:\users\brenstem\documents\asteroidsproj\sfmlconsoleapplication\sfmlconsoleapplication\game.cpp(62): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
   SFMLConsoleApplication.vcxproj -> C:\Users\Brenstem\Documents\AsteroidsProj\SFMLConsoleApplication\Debug\SFMLConsoleApplication.exe

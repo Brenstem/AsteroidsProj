@@ -1,6 +1,7 @@
 #include "Game.h"
 #include <iostream>
 #include <cstdlib>
+#include <random>
 
 namespace {
 	const String windowTitle = "Asteroids";
@@ -47,12 +48,22 @@ void Game::run()
 		clearWindow();
 
 		updateShip(deltaTime);
+		updateCoin(deltaTime);
 
 		drawCoin();
 		drawShip();
 
 		displayWindow();
 	}
+}
+
+Vector2f Game::getRandomPos()
+{
+	std::mt19937 random(time(0));
+	std::cout << random();
+	float x = (float)(std::rand() % mRenderWindow.getSize().x + 0);
+	float y = (float)(std::rand() % mRenderWindow.getSize().y + 0);
+	return Vector2f(x, y);
 }
 
 void Game::handleWindowEvents() 
@@ -82,16 +93,14 @@ void Game::createCoin()
 	mCoin = new Coin(mRenderWindow, mCoinTexture, getRandomPos(), COIN_VELOCITY, COIN_RADIUS);
 }
 
-Vector2f Game::getRandomPos()
-{
-	float x = (float)(std::rand() % mRenderWindow.getSize().x + 0);
-	float y = (float)(std::rand()% mRenderWindow.getSize().y + 0);
-	return Vector2f(x, y);
-}
-
 void Game::drawCoin() 
 {
 	mCoin->draw();
+}
+
+void Game::updateCoin(float deltaTime)
+{
+	mCoin->update(deltaTime);
 }
 
 void Game::createShip()

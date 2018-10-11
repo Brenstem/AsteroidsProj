@@ -31,6 +31,7 @@ private:
 
 	void createCoin();
 	void drawCoin();
+	void updateCoin(float deltaTime);
 
 	void createShip();
 	void drawShip();
