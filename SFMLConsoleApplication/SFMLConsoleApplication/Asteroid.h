@@ -13,6 +13,9 @@ public:
 	void update(float deltaTime);
 	void draw();
 
+	Vector2f getPos();
+	float getRad();
+
 private:
 	RenderWindow &mRenderWindow;
 	Sprite mSprite;

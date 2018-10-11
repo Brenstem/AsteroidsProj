@@ -27,6 +27,16 @@ void Ship::draw()
 	mRenderWindow.draw(mSprite);
 }
 
+Vector2f  Ship::getPos()
+{
+	return mSprite.getPosition();
+}
+
+float Ship::getRad()
+{
+	return mRad;
+}
+
 void Ship::updatePosition(float deltaTime)
 {
 	float directionX = 0.0f;

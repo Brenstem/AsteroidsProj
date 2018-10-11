@@ -34,7 +34,8 @@ private:
 	typedef std::vector<Asteroid*> AsteroidVector;
 	AsteroidVector astVector;
 	Texture mAsteroidTexture;
-	Clock mAsteroidSpawnClock;
+	float mAsteroidSpawnCounter;
+	float mAsteroidSpawnCountModifier;
 	Asteroid *mAsteroid;
 
 	void handleWindowEvents();
@@ -53,7 +54,17 @@ private:
 	void drawAsteroid();
 	void updateAsteroid(float deltaTime);
 
-	Vector2f getRandomPos(int min, int max);
+	bool overlap(Vector2f position0, float rad0, Vector2f position1, float rad1);
+	bool overlap(Ship *ship, Coin *coin);
+	bool overlap(Ship *ship, Asteroid *asteroid);
+
+	void handleCoinPickup();
+	void handleAsteroidCollisions();
+	void handleLostCoin();
+
+	float getRandomNumber(int min, int max);
+	void destroyCoin();
+
 };
 
 #endif // !INCLUDE_GAME

@@ -10,8 +10,12 @@ class Coin
 public:
 	Coin(RenderWindow &renderWindow, Texture &texture, Vector2f position, float velocity, float radius);
 	~Coin();
+
 	void update(float deltaTime);
 	void draw();
+
+	Vector2f getPos();
+	float getRad();
 
 private:
 	RenderWindow &mRenderWindow;

@@ -23,3 +23,13 @@ void Asteroid::draw()
 {
 	mRenderWindow.draw(mSprite);
 }
+
+Vector2f Asteroid::getPos()
+{
+	return mSprite.getPosition();
+}
+
+float Asteroid::getRad()
+{
+	return mRad;
+}

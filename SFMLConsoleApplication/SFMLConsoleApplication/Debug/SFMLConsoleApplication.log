@@ -1,2 +1,7 @@
-﻿  Game.cpp
+﻿  Asteroid.cpp
+  Game.cpp
+c:\users\brenstem\documents\asteroidsproj\sfmlconsoleapplication\sfmlconsoleapplication\game.cpp(117): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+c:\users\brenstem\documents\asteroidsproj\sfmlconsoleapplication\sfmlconsoleapplication\game.cpp(150): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+  Main.cpp
+  Generating Code...
   SFMLConsoleApplication.vcxproj -> C:\Users\Brenstem\Documents\AsteroidsProj\SFMLConsoleApplication\Debug\SFMLConsoleApplication.exe

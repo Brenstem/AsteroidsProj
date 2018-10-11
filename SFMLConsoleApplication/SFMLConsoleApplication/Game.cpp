@@ -29,6 +29,7 @@ Game::Game() :
 	, mShip(0)
 	, mCoin(0)
 	, mLevel(START_LEVEL)
+	, mAsteroidSpawnCounter(0)
 {
 	mRenderWindow.setFramerateLimit(FRAMERATE_LIMIT);
 
@@ -39,7 +40,6 @@ Game::Game() :
 	createShip();
 	createCoin();
 	
-
 	mGenerator.seed((unsigned int)(time(0)));
 }
 
@@ -50,13 +50,13 @@ Game::~Game()
 void Game::run()
 {
 	Clock frameClock;
-	mAsteroidSpawnClock;
 	while (mRenderWindow.isOpen() && !mGameOver)
 	{
 		float deltaTime = frameClock.restart().asSeconds();
+		mAsteroidSpawnCounter += deltaTime;
 		handleWindowEvents();
 		clearWindow();
-		createAsteroid();
+
 
 		updateShip(deltaTime);
 		updateCoin(deltaTime);
@@ -66,18 +66,28 @@ void Game::run()
 		drawShip();
 		drawAsteroid();
 
+		createAsteroid();
+
+		handleCoinPickup();
+		handleLostCoin();
+		handleAsteroidCollisions();
+
+
 		displayWindow();
 	}
 }
 
 
-Vector2f Game::getRandomPos(int min, int max)
+float Game::getRandomNumber(int min, int max)
 {
 	std::uniform_int_distribution<uint32_t> randomRange(min, max);
 
-	float x = (float)(randomRange(mGenerator));
-	float y = (float)(randomRange(mGenerator));
-	return Vector2f(x, y);
+	return (float)(randomRange(mGenerator));
+}
+
+void Game::destroyCoin()
+{
+	delete mCoin;
 }
 
 void Game::handleWindowEvents() 
@@ -104,7 +114,7 @@ void Game::displayWindow()
 
 void Game::createCoin()
 {
-	mCoin = new Coin(mRenderWindow, mCoinTexture, getRandomPos(0, videoMode.width), COIN_VELOCITY, COIN_RADIUS);
+	mCoin = new Coin(mRenderWindow, mCoinTexture, Vector2f(getRandomNumber(0, videoMode.width-COIN_RADIUS), -COIN_RADIUS), COIN_VELOCITY, COIN_RADIUS);
 }
 
 void Game::drawCoin() 
@@ -134,26 +144,21 @@ void Game::updateShip(float deltaTime)
 
 void Game::createAsteroid()
 {
-	if (ASTEROID_SPAWN_DELTA < mAsteroidSpawnClock.getElapsedTime().asSeconds())
+	mAsteroidSpawnCountModifier = ASTEROID_SPAWN_COUNT_BASE;
+	if (mAsteroidSpawnCountModifier < mAsteroidSpawnCounter)
 	{
-		//int spawnCount = int(ASTEROID_SPAWN_COUNT_BASE + mLevel * ASTEROID_SPAWN_COUNT_INCREMENT);
-		for (size_t i = 0; 0 < 1; i++)
-		{
-			std::cout << astVector.size();
-			Asteroid *asteroid = new Asteroid(mRenderWindow, mAsteroidTexture, getRandomPos(0, videoMode.width), ASTEROID_MIN_VELOCITY, ASTEROID_RADIUS);
-			astVector.push_back(asteroid);
-		}
-		mAsteroidSpawnClock.restart();
+		Asteroid *asteroid = new Asteroid(mRenderWindow, mAsteroidTexture, Vector2f(getRandomNumber(0, videoMode.width-ASTEROID_RADIUS), -ASTEROID_RADIUS), ASTEROID_MIN_VELOCITY, ASTEROID_RADIUS);
+		astVector.push_back(asteroid);
+		mAsteroidSpawnCounter = 0;
 	}
+	mAsteroidSpawnCountModifier = mAsteroidSpawnCountModifier * ASTEROID_SPAWN_COUNT_INCREMENT;
 }
 
 void Game::drawAsteroid()
 {
 	for (size_t i = 0; i < astVector.size(); i++)
 	{
-		std::cout << "drawing asteroid" << std::endl;
-		mAsteroid = astVector[i];
-		mAsteroid->draw();
+		astVector[i]->draw();
 	}
 }
 
@@ -161,8 +166,63 @@ void Game::updateAsteroid(float deltaTime)
 {
 	for (size_t i = 0; i < astVector.size(); i++)
 	{
-		std::cout << "updating asteroid" << std::endl;
-		mAsteroid = astVector[i];
-		mAsteroid->update(deltaTime);
+		astVector[i]->update(deltaTime);
+	}
+}
+
+bool Game::overlap(Vector2f position0, float rad0, Vector2f position1, float rad1)
+{
+	float deltaX = position0.x - position1.x;
+	float deltaY = position0.y - position1.y;
+	float radiusSum = rad0 + rad1;
+	return deltaX * deltaX * deltaY * deltaY < radiusSum * radiusSum;
+}
+
+bool Game::overlap(Ship * ship, Coin * coin)
+{
+	Vector2f shipPosition = ship->getPos();
+	float shipRadius = ship->getRad();
+	Vector2f coinPosition = coin->getPos();
+	float coinRadius = coin->getRad();
+
+	return overlap(shipPosition, shipRadius, coinPosition, coinRadius);
+}
+
+bool Game::overlap(Ship * ship, Asteroid *asteroid)
+{
+	Vector2f shipPosition = ship->getPos();
+	float shipRadius = ship->getRad();
+	Vector2f coinPosition = asteroid->getPos();
+	float coinRadius = asteroid->getRad();
+
+	return overlap(shipPosition, shipRadius, coinPosition, coinRadius);
+}
+
+void Game::handleCoinPickup()
+{
+	if (overlap(mShip, mCoin))
+	{
+		mLevel++;
+		destroyCoin();
+		createCoin();
+	}
+}
+
+void Game::handleAsteroidCollisions()
+{
+	for (size_t i = 0; i < astVector.size(); i++)
+	{
+		if (overlap(mShip, astVector[i]))
+		{
+			mGameOver = true;
+		}
+	}
+}
+
+void Game::handleLostCoin()
+{
+	if (COIN_RADIUS + mRenderWindow.getSize().y < mCoin->getPos().y)
+	{
+		mGameOver = true;
 	}
 }

@@ -26,3 +26,13 @@ void Coin::draw()
 	mRenderWindow.draw(mSprite);
 }
 
+Vector2f Coin::getPos()
+{
+	return mSprite.getPosition();
+}
+
+float Coin::getRad()
+{
+	return mRad;
+}
+
