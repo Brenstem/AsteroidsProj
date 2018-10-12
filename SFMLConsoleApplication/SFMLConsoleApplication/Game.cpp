@@ -1,6 +1,5 @@
 #include "Game.h"
 #include <iostream>
-#include <cstdlib>
 
 std::mt19937 Game::mGenerator;
 
@@ -65,7 +64,7 @@ void Game::run()
 
 		updateShip(deltaTime);
 		updateCoin(deltaTime);
-		updateAsteroid(deltaTime);
+		updateAsteroids(deltaTime);
 
 		draw();
 
@@ -130,7 +129,7 @@ void Game::destroyCoin()
 
 void Game::createCoin()
 {
-	mCoin = new Coin(mRenderWindow, mCoinTexture, Vector2f(getRandomNumber(0, videoMode.width - COIN_RADIUS), -COIN_RADIUS), COIN_VELOCITY, COIN_RADIUS);
+	mCoin = new Coin(mRenderWindow, mCoinTexture, Vector2f(getRandomNumber(COIN_RADIUS, videoMode.width - COIN_RADIUS), -COIN_RADIUS), COIN_VELOCITY, COIN_RADIUS);
 }
 
 void Game::createAsteroid()
@@ -138,7 +137,8 @@ void Game::createAsteroid()
 	mAsteroidSpawnCountModifier = ASTEROID_SPAWN_COUNT_BASE;
 	if (mAsteroidSpawnCountModifier < mAsteroidSpawnCounter)
 	{
-		Asteroid *asteroid = new Asteroid(mRenderWindow, mAsteroidTexture, Vector2f(getRandomNumber(0, videoMode.width - ASTEROID_RADIUS), -ASTEROID_RADIUS), ASTEROID_MIN_VELOCITY, ASTEROID_RADIUS);
+		Asteroid *asteroid = new Asteroid(mRenderWindow, mAsteroidTexture, Vector2f(getRandomNumber(0, videoMode.width - ASTEROID_RADIUS), -ASTEROID_RADIUS), ASTEROID_MIN_VELOCITY*(mLevel/10), ASTEROID_RADIUS);
+		std::cout << mAsteroid->getVelocity() << std::endl;
 		astVector.push_back(asteroid);
 		mAsteroidSpawnCounter = 0;
 	}
@@ -161,7 +161,7 @@ void Game::updateShip(float deltaTime)
 	mShip->update(deltaTime);
 }
 
-void Game::updateAsteroid(float deltaTime)
+void Game::updateAsteroids(float deltaTime)
 {
 	for (size_t i = 0; i < astVector.size(); i++)
 	{

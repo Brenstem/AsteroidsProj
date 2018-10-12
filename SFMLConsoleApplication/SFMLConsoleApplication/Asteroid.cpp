@@ -18,6 +18,7 @@ void Asteroid::update(float deltaTime)
 {
 	Vector2f dir(0, 1);
 	mSprite.move(deltaTime * mVelocity * dir);
+
 }
 
 void Asteroid::draw()
@@ -34,3 +35,4 @@ float Asteroid::getRad()
 {
 	return mRad;
 }
+

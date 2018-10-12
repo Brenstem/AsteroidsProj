@@ -19,7 +19,6 @@ public:
 private:
 	RenderWindow &mRenderWindow;
 	Sprite mSprite;
-	float mVelocity;
 	float mRad;
 };
 

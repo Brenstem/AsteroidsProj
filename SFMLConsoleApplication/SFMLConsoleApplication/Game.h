@@ -54,7 +54,7 @@ private:
 	void updateShip(float deltaTime);
 
 	void createAsteroid();
-	void updateAsteroid(float deltaTime);
+	void updateAsteroids(float deltaTime);
 
 	bool overlap(Vector2f position0, float rad0, Vector2f position1, float rad1);
 	bool overlap(Ship *ship, Coin *coin);
