@@ -9,6 +9,7 @@ Coin::Coin(RenderWindow& renderWindow, Texture& texture, Vector2f position, floa
 	mSprite.setPosition(position);
 	mVelocity = velocity;
 	mRad = radius;
+	mSprite.setOrigin(radius, radius);
 }
 
 Coin::~Coin()

@@ -3,11 +3,13 @@
 
 #include <SFML/Graphics.hpp>
 #include <string>
+#include <random>
+#include <vector>
+
 #include "Coin.h"
 #include "Ship.h"
 #include "Asteroid.h"
-#include <random>
-#include <vector>
+
 
 using namespace sf;
 
@@ -24,34 +26,34 @@ private:
 	bool mGameOver;
 	int mLevel;
 	static std::mt19937 mGenerator;
-
-	Ship *mShip;
-	Texture mShipTexture;
-
-	Coin *mCoin;
-	Texture mCoinTexture;
-
 	typedef std::vector<Asteroid*> AsteroidVector;
 	AsteroidVector astVector;
+
+	Texture mShipTexture;
 	Texture mAsteroidTexture;
+	Texture mCoinTexture;
+
+	Coin *mCoin;
+	Ship *mShip;
+	Asteroid *mAsteroid;
+
 	float mAsteroidSpawnCounter;
 	float mAsteroidSpawnCountModifier;
-	Asteroid *mAsteroid;
+
+	void draw();
 
 	void handleWindowEvents();
 	void clearWindow();
 	void displayWindow();
 
 	void createCoin();
-	void drawCoin();
 	void updateCoin(float deltaTime);
+	void destroyCoin();
 
 	void createShip();
-	void drawShip();
 	void updateShip(float deltaTime);
 
 	void createAsteroid();
-	void drawAsteroid();
 	void updateAsteroid(float deltaTime);
 
 	bool overlap(Vector2f position0, float rad0, Vector2f position1, float rad1);
@@ -61,9 +63,9 @@ private:
 	void handleCoinPickup();
 	void handleAsteroidCollisions();
 	void handleLostCoin();
+	void handleAsteroidLoss();
 
-	float getRandomNumber(int min, int max);
-	void destroyCoin();
+	int getRandomNumber(float min, float max);
 
 };
 

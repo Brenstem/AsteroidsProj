@@ -7,6 +7,7 @@ Asteroid::Asteroid(RenderWindow & renderWindow, Texture & texture, Vector2f posi
 	mSprite.setPosition(position);
 	mVelocity = velocity;
 	mRad = radius;
+	mSprite.setOrigin(radius, radius);
 }
 
 Asteroid::~Asteroid()
