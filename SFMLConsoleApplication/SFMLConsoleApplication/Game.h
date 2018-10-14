@@ -65,7 +65,7 @@ private:
 	void handleLostCoin();
 	void handleAsteroidLoss();
 
-	int getRandomNumber(float min, float max);
+	int getRandomNumber(int min, int max);
 
 };
 

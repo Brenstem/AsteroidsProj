@@ -1,17 +1,2 @@
 ﻿  Game.cpp
-c:\users\brenstem\documents\asteroidsproj\sfmlconsoleapplication\sfmlconsoleapplication\game.cpp(84): warning C4244: 'argument': conversion from 'float' to '_Ty', possible loss of data
-          with
-          [
-              _Ty=uint32_t
-          ]
-c:\users\brenstem\documents\asteroidsproj\sfmlconsoleapplication\sfmlconsoleapplication\game.cpp(133): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
-          with
-          [
-              T=float
-          ]
-c:\users\brenstem\documents\asteroidsproj\sfmlconsoleapplication\sfmlconsoleapplication\game.cpp(141): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
-          with
-          [
-              T=float
-          ]
   SFMLConsoleApplication.vcxproj -> C:\Users\Brenstem\Documents\AsteroidsProj\SFMLConsoleApplication\Debug\SFMLConsoleApplication.exe
