@@ -1,19 +1,21 @@
-﻿  Game.cpp
-c:\users\brenstem\documents\asteroidsproj\sfmlconsoleapplication\sfmlconsoleapplication\game.cpp(84): warning C4244: 'argument': conversion from 'float' to '_Ty', possible loss of data
+﻿  Asteroid.cpp
+c:\users\brenstem\documents\asteroidsproj\sfmlconsoleapplication\sfmlconsoleapplication\asteroid.cpp(20): error C2065: 'mVelocity': undeclared identifier
+  Game.cpp
+c:\users\brenstem\documents\asteroidsproj\sfmlconsoleapplication\sfmlconsoleapplication\game.cpp(83): warning C4244: 'argument': conversion from 'float' to '_Ty', possible loss of data
           with
           [
               _Ty=uint32_t
           ]
-c:\users\brenstem\documents\asteroidsproj\sfmlconsoleapplication\sfmlconsoleapplication\game.cpp(133): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
+c:\users\brenstem\documents\asteroidsproj\sfmlconsoleapplication\sfmlconsoleapplication\game.cpp(132): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
           with
           [
               T=float
           ]
-c:\users\brenstem\documents\asteroidsproj\sfmlconsoleapplication\sfmlconsoleapplication\game.cpp(141): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
+c:\users\brenstem\documents\asteroidsproj\sfmlconsoleapplication\sfmlconsoleapplication\game.cpp(140): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
           with
           [
               T=float
           ]
-  Main.cpp
+c:\users\brenstem\documents\asteroidsproj\sfmlconsoleapplication\sfmlconsoleapplication\game.cpp(141): error C2039: 'getVelocity': is not a member of 'Asteroid'
+  c:\users\brenstem\documents\asteroidsproj\sfmlconsoleapplication\sfmlconsoleapplication\asteroid.h(8): note: see declaration of 'Asteroid'
   Generating Code...
-  SFMLConsoleApplication.vcxproj -> C:\Users\Brenstem\Documents\AsteroidsProj\SFMLConsoleApplication\Debug\SFMLConsoleApplication.exe
