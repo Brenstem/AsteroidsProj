@@ -1,7 +1,6 @@
 #include "Coin.h"
 
-using namespace sf;
-
+//Constructor/Destructor
 Coin::Coin(RenderWindow& renderWindow, Texture& texture, Vector2f position, float velocity, float radius) :
 	mRenderWindow(renderWindow)
 {
@@ -16,6 +15,7 @@ Coin::~Coin()
 {
 }
 
+//Handling coin object
 void Coin::update(float deltaTime)
 {
 	Vector2f direction(0, 1);
@@ -27,6 +27,7 @@ void Coin::draw()
 	mRenderWindow.draw(mSprite);
 }
 
+//Getters/Setters
 Vector2f Coin::getPos()
 {
 	return mSprite.getPosition();

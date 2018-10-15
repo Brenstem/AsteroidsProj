@@ -1,5 +1,6 @@
 #include "Asteroid.h"
 
+// Constructor/Destructor
 Asteroid::Asteroid(RenderWindow & renderWindow, Texture & texture, Vector2f position, float velocity, float radius) :
 	mRenderWindow(renderWindow)
 {
@@ -14,6 +15,7 @@ Asteroid::~Asteroid()
 {
 }
 
+// Handles gameobject
 void Asteroid::update(float deltaTime)
 {
 	Vector2f dir(0, 1);
@@ -25,6 +27,7 @@ void Asteroid::draw()
 	mRenderWindow.draw(mSprite);
 }
 
+// Getters/Setters
 Vector2f Asteroid::getPos()
 {
 	return mSprite.getPosition();

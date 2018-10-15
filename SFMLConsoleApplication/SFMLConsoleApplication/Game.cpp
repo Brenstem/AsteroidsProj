@@ -4,6 +4,7 @@
 
 std::mt19937 Game::mGenerator;
 
+//Anonymous namespace with game settings
 namespace {
 	const String windowTitle = "Asteroids";
 	const VideoMode videoMode = VideoMode(768, 1024);
@@ -23,6 +24,7 @@ namespace {
 	const int ASTEROID_DELTA_VELOCITY = 200;
 }
 
+//Constructor/destructor
 Game::Game() :
 	mRenderWindow(videoMode, windowTitle, Style::Titlebar | Style::Close)
 	, mGameOver(false)
@@ -40,9 +42,6 @@ Game::Game() :
 
 	createShip();
 	createCoin();
-	
-	std::cout << mCoinTexture.getSize().x;
-	std::cout << mCoinTexture.getSize().y;
 
 	mGenerator.seed((unsigned int)(time(0)));
 }
@@ -51,6 +50,7 @@ Game::~Game()
 {
 }
 
+//Public functions for Game
 void Game::run()
 {
 	Clock frameClock;
@@ -64,10 +64,7 @@ void Game::run()
 
 		createAsteroid();
 
-		updateShip(deltaTime);
-		updateCoin(deltaTime);
-		updateAsteroid(deltaTime);
-
+		update(deltaTime);
 		draw();
 
 		handleCoinPickup();
@@ -79,27 +76,40 @@ void Game::run()
 	}
 }
 
-
+//Random number generator
 int Game::getRandomNumber(int min, int max)
 {
+	//Uses a range of numbers and a merselles twister generator to get a random number from the range
 	std::uniform_int_distribution<uint32_t> randomRange(min, max);
-
 	return randomRange(mGenerator);
 }
 
-
+//Drawing and updating all game objects
 void Game::draw()
 {
 	mCoin->draw();
 	mShip->draw();
 
+	//Adds asteroids to the asteroid vector as the game draws them
 	for (size_t i = 0; i < astVector.size(); i++)
 	{
 		astVector[i]->draw();
 	}
 }
 
+void Game::update(float deltaTime)
+{
+	mCoin->update(deltaTime);
+	mShip->update(deltaTime);
 
+	//Updates all objects in the asteroid vector
+	for (size_t i = 0; i < astVector.size(); i++)
+	{
+		astVector[i]->update(deltaTime);
+	}
+}
+
+//Handling the Renderwindow
 void Game::handleWindowEvents()
 {
 	Event event;
@@ -122,13 +132,7 @@ void Game::displayWindow()
 	mRenderWindow.display();
 }
 
-
-void Game::destroyCoin()
-{
-	delete mCoin;
-}
-
-
+//Instantiating gameobjects and setting pointers
 void Game::createCoin()
 {
 	mCoin = new Coin(mRenderWindow, mCoinTexture, Vector2f((float)(getRandomNumber(0, videoMode.width - COIN_RADIUS)), -COIN_RADIUS), COIN_VELOCITY, COIN_RADIUS);
@@ -136,6 +140,7 @@ void Game::createCoin()
 
 void Game::createAsteroid()
 {
+	// Compares the spawnCounter, which is based on time, to the spawnCountModifier, which is based on how many coins you've picked up, and decides if an asteroid should spawn on a given frame
 	if (mAsteroidSpawnCountModifier < mAsteroidSpawnCounter)
 	{
 		Asteroid *asteroid = new Asteroid(mRenderWindow, mAsteroidTexture, Vector2f((float)(getRandomNumber(0, videoMode.width - ASTEROID_RADIUS)), -ASTEROID_RADIUS), (float)(getRandomNumber(ASTEROID_MIN_VELOCITY, ASTEROID_DELTA_VELOCITY)), ASTEROID_RADIUS);
@@ -149,28 +154,10 @@ void Game::createShip()
 	mShip = new Ship(mRenderWindow, mShipTexture, SHIP_STARTPOSITION, SHIP_VELOCITY, SHIP_RADIUS);
 }
 
-
-void Game::updateCoin(float deltaTime)
-{
-	mCoin->update(deltaTime);
-}
-
-void Game::updateShip(float deltaTime)
-{
-	mShip->update(deltaTime);
-}
-
-void Game::updateAsteroid(float deltaTime)
-{
-	for (size_t i = 0; i < astVector.size(); i++)
-	{
-		astVector[i]->update(deltaTime);
-	}
-}
-
-
+//Handles collision between all gameobjects
 bool Game::overlap(Vector2f position0, float rad0, Vector2f position1, float rad1)
 {
+	//Uses pythagoras to calculate distance and compares to object radius
 	float deltaX = position0.x - position1.x;
 	float deltaY = position0.y - position1.y;
 	float radiusSum = rad0 + rad1;
@@ -198,14 +185,15 @@ bool Game::overlap(Ship * ship, Asteroid *asteroid)
 	return overlap(shipPosition, shipRadius, asteroidPosition, asteroidRadius);
 }
 
-
+//Handles objects interactions
 void Game::handleCoinPickup()
 {
 	if (overlap(mShip, mCoin))
 	{
 		std::cout << "picked up coin, currently at level: " << mLevel << std::endl;
+		std::cout << "Asteroid spawn modifier = " << mAsteroidSpawnCountModifier << std::endl;
 		mLevel++;
-		destroyCoin();
+		delete mCoin;
 		createCoin();
 		mAsteroidSpawnCountModifier *= ASTEROID_SPAWN_COUNT_INCREMENT;
 	}

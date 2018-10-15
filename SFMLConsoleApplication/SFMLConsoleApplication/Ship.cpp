@@ -1,8 +1,6 @@
 #include "Ship.h"
-#include <iostream>
 
-using namespace sf;
-
+//Constructor/Destructor
 Ship::Ship(RenderWindow& renderWindow, Texture& texture, Vector2f position, float velocity, float radius) : 
 	mRenderWindow(renderWindow)
 {
@@ -17,6 +15,7 @@ Ship::~Ship()
 {
 }
 
+//Handling objects
 void Ship::update(float deltaTime)
 {
 	updatePosition(deltaTime);
@@ -24,10 +23,12 @@ void Ship::update(float deltaTime)
 }
 
 void Ship::draw()
+
 {
 	mRenderWindow.draw(mSprite);
 }
 
+//Getters/Setters
 Vector2f  Ship::getPos()
 {
 	return mSprite.getPosition();
@@ -38,6 +39,7 @@ float Ship::getRad()
 	return mRad;
 }
 
+//Handles objects movement
 void Ship::updatePosition(float deltaTime)
 {
 	float directionX = 0.0f;
