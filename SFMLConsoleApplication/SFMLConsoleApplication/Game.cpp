@@ -10,16 +10,16 @@ namespace {
 	const Vector2f SHIP_STARTPOSITION = Vector2f(354, 850);
 	const int FRAMERATE_LIMIT = 60;
 	const int START_LEVEL = 1;
-	const float SHIP_RADIUS = 10.0f;
-	const float SHIP_VELOCITY = 300.0f;
-	const float COIN_RADIUS = 16.0f;
-	const float COIN_VELOCITY = 40.0f;
-	const float ASTEROID_RADIUS = 32.0f;
-	const float ASTEROID_SPAWN_DELTA = 1.0f;
-	const float ASTEROID_SPAWN_COUNT_BASE = 1.0f;
-	const float ASTEROID_SPAWN_COUNT_INCREMENT = 0.5f;
-	const float ASTEROID_MIN_VELOCITY = 80.0f;
-	const float ASTEROID_DELTA_VELOCITY = 200.0f;
+	const int SHIP_RADIUS = 32;
+	const int SHIP_VELOCITY = 300;
+	const int COIN_RADIUS = 16;
+	const int COIN_VELOCITY = 40;
+	const int ASTEROID_RADIUS = 32;
+	const int ASTEROID_SPAWN_DELTA = 1;
+	const int ASTEROID_SPAWN_COUNT_BASE = 1;
+	const float ASTEROID_SPAWN_COUNT_INCREMENT = 0.98f;
+	const int ASTEROID_MIN_VELOCITY = 80;
+	const int ASTEROID_DELTA_VELOCITY = 200;
 }
 
 Game::Game() :
@@ -29,6 +29,7 @@ Game::Game() :
 	, mCoin(0)
 	, mLevel(START_LEVEL)
 	, mAsteroidSpawnCounter(0)
+	, mAsteroidSpawnCountModifier(ASTEROID_SPAWN_COUNT_BASE)
 {
 	mRenderWindow.setFramerateLimit(FRAMERATE_LIMIT);
 
@@ -78,7 +79,7 @@ void Game::run()
 }
 
 
-int Game::getRandomNumber(float min, float max)
+int Game::getRandomNumber(int min, int max)
 {
 	std::uniform_int_distribution<uint32_t> randomRange(min, max);
 
@@ -129,20 +130,26 @@ void Game::destroyCoin()
 
 void Game::createCoin()
 {
+<<<<<<< HEAD
 	mCoin = new Coin(mRenderWindow, mCoinTexture, Vector2f(getRandomNumber(COIN_RADIUS, videoMode.width - COIN_RADIUS), -COIN_RADIUS), COIN_VELOCITY, COIN_RADIUS);
+=======
+	mCoin = new Coin(mRenderWindow, mCoinTexture, Vector2f((float)(getRandomNumber(0, videoMode.width - COIN_RADIUS)), -COIN_RADIUS), COIN_VELOCITY, COIN_RADIUS);
+>>>>>>> d9ded8d2804dcbadb9f7734b710523e1809386a8
 }
 
 void Game::createAsteroid()
 {
-	mAsteroidSpawnCountModifier = ASTEROID_SPAWN_COUNT_BASE;
 	if (mAsteroidSpawnCountModifier < mAsteroidSpawnCounter)
 	{
+<<<<<<< HEAD
 		Asteroid *asteroid = new Asteroid(mRenderWindow, mAsteroidTexture, Vector2f(getRandomNumber(0, videoMode.width - ASTEROID_RADIUS), -ASTEROID_RADIUS), ASTEROID_MIN_VELOCITY*(mLevel/10), ASTEROID_RADIUS);
 		std::cout << mAsteroid->getVelocity() << std::endl;
+=======
+		Asteroid *asteroid = new Asteroid(mRenderWindow, mAsteroidTexture, Vector2f((float)(getRandomNumber(0, videoMode.width - ASTEROID_RADIUS)), -ASTEROID_RADIUS), (float)(getRandomNumber(ASTEROID_MIN_VELOCITY, ASTEROID_DELTA_VELOCITY)), ASTEROID_RADIUS);
+>>>>>>> d9ded8d2804dcbadb9f7734b710523e1809386a8
 		astVector.push_back(asteroid);
 		mAsteroidSpawnCounter = 0;
 	}
-	mAsteroidSpawnCountModifier = mAsteroidSpawnCountModifier * ASTEROID_SPAWN_COUNT_INCREMENT;
 }
 
 void Game::createShip()
@@ -208,6 +215,7 @@ void Game::handleCoinPickup()
 		mLevel++;
 		destroyCoin();
 		createCoin();
+		mAsteroidSpawnCountModifier *= ASTEROID_SPAWN_COUNT_INCREMENT;
 	}
 }
 
@@ -218,7 +226,7 @@ void Game::handleAsteroidCollisions()
 		if (overlap(mShip, astVector[i]))
 		{
 			std::cout << "Collided with asteroid" << std::endl;
-			//mGameOver = true;
+			mGameOver = true;
 		}
 	}
 }
@@ -234,7 +242,7 @@ void Game::handleLostCoin()
 
 void Game::handleAsteroidLoss()
 {
-	float maxY = mRenderWindow.getSize().y + ASTEROID_RADIUS;
+	float maxY = mRenderWindow.getSize().y + (float)ASTEROID_RADIUS;
 	AsteroidVector remainingAsteroids;
 
 	for (size_t i = 0; i < astVector.size(); i++)
