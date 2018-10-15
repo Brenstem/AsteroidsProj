@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 ﻿  Asteroid.cpp
 c:\users\brenstem\documents\asteroidsproj\sfmlconsoleapplication\sfmlconsoleapplication\asteroid.cpp(20): error C2065: 'mVelocity': undeclared identifier
   Game.cpp
@@ -20,7 +19,3 @@ c:\users\brenstem\documents\asteroidsproj\sfmlconsoleapplication\sfmlconsoleappl
 c:\users\brenstem\documents\asteroidsproj\sfmlconsoleapplication\sfmlconsoleapplication\game.cpp(141): error C2039: 'getVelocity': is not a member of 'Asteroid'
   c:\users\brenstem\documents\asteroidsproj\sfmlconsoleapplication\sfmlconsoleapplication\asteroid.h(8): note: see declaration of 'Asteroid'
   Generating Code...
-=======
-﻿  Game.cpp
-  SFMLConsoleApplication.vcxproj -> C:\Users\Brenstem\Documents\AsteroidsProj\SFMLConsoleApplication\Debug\SFMLConsoleApplication.exe
->>>>>>> d9ded8d2804dcbadb9f7734b710523e1809386a8
